@@ -1,0 +1,13 @@
+#!/bin/sh
+#battery
+battery=$(upower -d|grep per)
+battery_time=$(upower -d|grep time|awk 'NR==2 {print $1, $2, $3, $4, $5}')
+batteryall=$(echo "$battery"| awk 'NR==3 {print $2}')
+echo "The total battery is $batteryall || $battery_time"
+#volume
+volume=$(pamixer --get-volume)
+echo "The total volume is $volume %"
+##network
+network=$(nmcli|awk 'NR==1 {print}')
+network_ip=$(ip a|grep inet|awk 'NR ==3 {print $2}')
+echo "network is $network|ip is $network_ip"
